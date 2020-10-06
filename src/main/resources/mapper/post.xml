@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaybon.springblog.repository.PostRepository">
+	
+	<select id="findAll" resultType="com.jaybon.springblog.model.Post">
+		SELECT id, title, content, userId, createDate FROM Post
+	</select>
+	
+	<select id="findAllDesc" resultType="com.jaybon.springblog.model.Post">
+		SELECT id, title, content, userId, createDate FROM Post ORDER BY id Desc
+	</select>
+  
+</mapper>
