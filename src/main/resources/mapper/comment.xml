@@ -7,5 +7,12 @@
 	<select id="findAll" resultType="com.jaybon.springblog.model.Comment">
 		SELECT id, userId, postId, content, createDate FROM Comment
 	</select>
+	
+	<select id="findAllByPostId" resultType="com.jaybon.springblog.dto.ReplyDto">
+		SELECT c.id, c.userId, c.postId, c.content, c.createDate, u.username
+		FROM comment c, user u
+		WHERE c.userId = u.id
+			AND c.postId = #{id}
+	</select>
   
 </mapper>

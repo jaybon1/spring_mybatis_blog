@@ -5,7 +5,7 @@
 
 <div class="container">
 	<!-- 컨테이너에 담으면 양쪽 끝을 띄워준다 -->
-	<form action="/blog/board?cmd=writeProc" method="post" onsubmit="return validate()">
+	<form action="/writeProc" method="post">
 
 		<div class="form-group">
 			<label for="title">Title:</label> 
