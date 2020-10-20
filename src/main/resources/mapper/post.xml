@@ -23,5 +23,15 @@
 		INSERT INTO post(title, content, userId, createDate)
 		VALUES(#{title}, #{content}, #{userId}, now())
 	</insert>
+	
+	<delete id="delete">
+		DELETE FROM post WHERE id = #{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE post SET title = #{title}, content = #{content} WHERE id = #{id}
+	</update>
+	
+	
   
 </mapper>

@@ -4,23 +4,24 @@
 <%@include file="../include/authentication.jsp"%>
 
 <div class="container">
-	<form action="/blog/board?cmd=updateProc" method="post" onsubmit="return validate()">
-
-		<input type="hidden" value="${boardDto.board.id}" name="id" />
+	<form id="updateForm" action="/post/updateProc" method="put" onsubmit="return validate()">
+		
+		<input type="hidden" value="${boardDto.id}" name="id" />
 		
 		<div class="form-group">
 			<label for="title">Title:</label> 
-			<input value="${boardDto.board.title}" type="text" class="form-control" placeholder="title" id="title" name="title" required>
+			<input value="${boardDto.title}" type="text" class="form-control" placeholder="title" id="title" name="title" required>
 		</div>
 
 		<div class="form-group">
 			<label for="content">Content:</label>
-			<textarea class="form-control" rows="5" placeholder="내용을 입력하세요" id="content" name="content">${boardDto.board.content}</textarea>
+			<textarea class="form-control" rows="5" placeholder="내용을 입력하세요" id="content" name="content">${boardDto.content}</textarea>
 		</div>
 
-		<button type="submit" class="btn btn-primary">글쓰기</button>
-
 	</form>
+	
+		<button type="button" class="btn btn-primary" onclick="updateProc(${boardDto.id})" >수정하기</button>
+		
 </div>
 
 <script>
@@ -32,6 +33,40 @@
 </script>
 
 <script>
+
+	function updateProc(id){
+		
+		let data = $("#updateForm").serialize();
+		alert(data);
+		
+		$.ajax({
+			
+			type : "put",
+			url : "/post/updateProc",
+			data : data,
+			dataType : "text"
+	
+		}).done(function(result) {
+	
+			if (result == 1) {
+				alert("수정 성공");
+				location.href = "/detail/"+id;
+			} else {
+				alert("수정 실패");
+			}
+	
+		}).fail(function(result) {
+	
+			alert("서버 오류");
+	
+		}).always(function(result) {
+	
+		});
+		
+		
+		
+	}
+
 	function validate() {
 
 		var test = $("#title").val();

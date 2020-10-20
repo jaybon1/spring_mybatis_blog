@@ -19,4 +19,8 @@ public interface PostRepository {
 	
 	public void save(Post post);
 	
+	public int delete(int id);
+	
+	public int update(Post post);
+	
 }

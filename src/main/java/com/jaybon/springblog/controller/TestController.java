@@ -8,9 +8,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -131,6 +133,43 @@ public class TestController {
 		model.addAttribute("detailDto", detailDto);
 		
 		return "board/detail";
+	}
+	
+	@DeleteMapping("post/delete/{id}")
+	public @ResponseBody String deletePost(@PathVariable int id) {
+		
+		int result = postRepository.delete(id);
+		
+		if(result == 1) {
+			return "1";			
+		} else {
+			return "0";
+		}
+	}
+	
+	@GetMapping("post/update/{id}")
+	public String updatePage(@PathVariable int id, Model model) {
+		
+		BoardDto boardDto = postRepository.findById(id);
+		
+		model.addAttribute("boardDto", boardDto);
+		
+		return "board/update";
+		
+	}
+	
+	@PutMapping("post/updateProc")
+	public @ResponseBody String updateProc(Post post) {
+		
+		int result = postRepository.update(post);
+		
+		if(result == 1) {
+//			return "redirect:/detail/"+post.getId();
+			return "1";
+		} else {
+			return "0";
+		}
+		
 	}
 	
 	// 로그아웃

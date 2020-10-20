@@ -8,7 +8,7 @@
 
 	<c:if test="${sessionScope.principal.id == detailDto.boardDto.userId}">
 
-		<a href="/blog/board?cmd=update&id=${detailDto.boardDto.id}" class="btn btn-warning">수정</a>
+		<a href="/post/update/${detailDto.boardDto.id}" class="btn btn-warning">수정</a>
 		<!-- 하이퍼링크는 get방식만 사용 -->
 		<button type="button" class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.id})">삭제</button>
 
@@ -74,6 +74,37 @@
 </div>
 
 <script>
+
+	function deleteById(boardId) { // 주소에 값이 노출되지만 delete이기 때문에 post로 전송
+		$.ajax({
+	
+			type : "DELETE",
+			url : "/post/delete/"+boardId,
+			dataType : "text"
+	
+		}).done(function(result) {
+	
+			if (result == 1) {
+				alert("삭제 성공");
+				location.href = "/";
+			} else {
+				alert("삭제 실패");
+			}
+	
+		}).fail(function(result) {
+	
+			alert("서버 오류");
+	
+		}).always(function(result) {
+	
+		});
+	}
+	
+	function back(page) {
+		
+		location.href = "/blog/board?cmd=home&page=" + page;
+		
+	}
 
 	function replyDelete(replyId) {
 		
@@ -205,8 +236,6 @@
 		
 	}
 </script>
-
-<script src="/blog/js/detail.js"></script>
 
 <%@include file="../include/footer.jsp"%>
 
